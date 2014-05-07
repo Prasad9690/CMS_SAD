@@ -1,5 +1,5 @@
 <?php
-function check_required_fields($required_array) {
+/* function check_required_fields($required_array) {
 	$field_errors = array();
 	foreach($required_array as $fieldname) {
 		if (!isset($_POST[$fieldname]) || empty($_POST[$fieldname])) { 
@@ -7,7 +7,7 @@ function check_required_fields($required_array) {
 		}
 	}
 	return $field_errors;
-}
+} */
 
 function check_max_field_lengths($field_length_array) {
 	$field_errors = array();

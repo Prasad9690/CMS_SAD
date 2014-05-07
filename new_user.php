@@ -1,5 +1,18 @@
 <?php require_once("includes/session.php"); ?>
 <?php require_once("includes/connection.php"); ?>
+<script type = "text/javascritp">
+	function min_lenght() {
+		var user = document.getElementById("username").value;
+		var pass = document.getElementById("password").value;
+		
+		if(user.length < 6) {
+			alert("The username length mush be atleast 6 characters long");
+		}
+		if(pass.length < 6) {
+			alert("The username length mush be atleast 6 characters long");
+		}
+	}
+</script>
 <?php require_once("includes/functions.php"); ?>
 <?php confirm_logged_in(); ?>
 <?php
@@ -15,22 +28,26 @@
 		
 		$username = trim(mysql_prep($_POST['username']));
 		$password = trim(mysql_prep($_POST['password']));
+
 		$hashed_password = sha1($password); //used for hashing the password
-		
-		if(empty($errors)) {
-			$query = "INSERT INTO users(username,hashed_password) VALUES ('{$username}','{$hashed_password}')";
-			$result = mysql_query($query,$connection);
-			if($result) {
-				$message = "The user was successfully created.";
-			} else {
-				$message = "The user could not be created.";
-				$message .= "<br />" . mysql_error();
-			}
+		if(strlen($username) < 6 or strlen($password) < 6) {
+			$message = "Username and Password must be atleast 6 characters long";
 		} else {
-			if(count($errors) == 1) {
-				$message = "There was 1 error in the form.";
+			if(empty($errors)) {
+				$query = "INSERT INTO users(username,hashed_password) VALUES ('{$username}','{$hashed_password}')";
+				$result = mysql_query($query,$connection);
+				if($result) {
+					$message = "The user was successfully created.";
+				} else {
+					$message = "The user could not be created.";
+					$message .= "<br />" . mysql_error();
+				}
 			} else {
-				$message = "There were " . count($errors) . " errors in the form.";		
+				if(count($errors) == 1) {
+					$message = "There was 1 error in the form.";
+				} else {
+					$message = "There were " . count($errors) . " errors in the form.";		
+				}
 			}
 		}
 	} else {
@@ -39,6 +56,7 @@
 	}
 ?>
 <?php include("includes/header.php") ?>
+
 <table id="structure">
 	<tr>
 		<td id="navigation">
@@ -60,7 +78,7 @@
 					<td><input type="password" name="password" maxlength="30" required="required" value="<?php echo htmlentities($password); ?>" /></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="submit" name="submit" value="Create user" /></td>
+					<td colspan="2"><input type="submit" name="submit" value="Create user" onclick = /></td>
 				</tr>
 			</table>
 			</form>
