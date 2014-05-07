@@ -1,18 +1,5 @@
 <?php require_once("includes/session.php"); ?>
 <?php require_once("includes/connection.php"); ?>
-<script type = "text/javascritp">
-	function min_lenght() {
-		var user = document.getElementById("username").value;
-		var pass = document.getElementById("password").value;
-		
-		if(user.length < 6) {
-			alert("The username length mush be atleast 6 characters long");
-		}
-		if(pass.length < 6) {
-			alert("The username length mush be atleast 6 characters long");
-		}
-	}
-</script>
 <?php require_once("includes/functions.php"); ?>
 <?php confirm_logged_in(); ?>
 <?php
